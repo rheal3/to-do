@@ -17,12 +17,19 @@ function createListElement() {
     li.appendChild(delBtn); // append delete button to list item 
     delBtn.addEventListener('click', deleteListItem); // event listener, if button clicked calls delete function & deletes
 
-    // mark item as complete
-    function crossOut() {
-		li.classList.add('done'); // add 'done' to list item class
-	}
+    // change status to complete or incomplete
+    let status = false;
+    function changeStatus() {
+        if (!status) {
+            li.classList.add('done');
+            status = true;
+        } else {
+            li.classList.remove('done');
+            status = false;
+        }
+    }
 
-	li.addEventListener("click", crossOut); // listen for li being clicked & if clicked call crossOut function
+	li.addEventListener("click", changeStatus); // listen for li being clicked & if clicked call changeStatus function
 
     // delete list item
     function deleteListItem() {
@@ -69,3 +76,6 @@ function getNotDeletedItems(items) {
 }
 
 randBtn.addEventListener('click', getRandomItem);
+
+
+// change item back to incomplete...
