@@ -17,9 +17,16 @@ function createListElement() {
     li.appendChild(delBtn); // append delete button to list item 
     delBtn.addEventListener('click', deleteListItem); // event listener, if button clicked calls delete function & deletes
 
+    // mark item as complete
+    function crossOut() {
+		li.classList.add('done'); // add 'done' to list item class
+	}
+
+	li.addEventListener("click", crossOut); // listen for li being clicked & if clicked call crossOut function
+
     // delete list item
     function deleteListItem() {
-        li.style.display = 'none'; // change css style of list item to not display
+        li.classList.add('delete'); // add 'delete' to list item class
     }
 }
 
@@ -33,12 +40,12 @@ function addListItem() {
 
 enterBtn.addEventListener('click', addListItem);
 
+
 // THE RANDOMNESS:
 const randBtn = document.getElementById('random');
 
 // return random item in list if not marked as no display (deleted)
 function getRandomItem() {
-    // const allListItems = ;
     let listItems = getNotDeletedItems(document.getElementsByTagName('li'));
     if (listItems.length > 0) {
         let randInt = Math.floor(Math.random() * listItems.length)
@@ -54,15 +61,11 @@ function getRandomItem() {
 function getNotDeletedItems(items) {
     let notDeleted = [];
     for (i = 0; i < items.length; i++) {
-        if (items[i].style.display !== "none") {
-            notDeleted.push(items[i])
+        if (!(items[i].classList.contains('done') || items[i].classList.contains('delete'))) {
+            notDeleted.push(items[i]);
         }
     }
     return notDeleted;
 }
 
 randBtn.addEventListener('click', getRandomItem);
-
-
-
-// ??? clear list once random item is chosen?
