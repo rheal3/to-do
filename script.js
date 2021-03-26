@@ -23,6 +23,7 @@ function createListElement() {
         if (!status) {
             li.classList.add('done');
             status = true;
+            getRandomCatFact();
         } else {
             li.classList.remove('done');
             status = false;
@@ -78,4 +79,13 @@ function getNotDeletedItems(items) {
 randBtn.addEventListener('click', getRandomItem);
 
 
-// change item back to incomplete...
+function getRandomCatFact() {
+    let url = "https://catfact.ninja/fact?max_length=140"
+    let request = fetch(url);
+
+    request.then(function(response) {
+        return response.json();
+    }).then(function(json) {
+        alert("You completed a task! Have a cat fact: " + json.fact)
+    })
+}
